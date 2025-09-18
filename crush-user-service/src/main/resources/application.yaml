@@ -1,0 +1,14 @@
+server:
+  port: 9094
+spring:
+  application:
+    name: crush-user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/crush_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
