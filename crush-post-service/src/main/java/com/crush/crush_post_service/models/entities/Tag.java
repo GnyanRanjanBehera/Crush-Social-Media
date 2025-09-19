@@ -4,24 +4,24 @@ package com.crush.crush_post_service.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "post_like")
-public class PostLike{
-
+@Table(name = "tag")
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "like_id",unique = true,nullable = false)
-    private Integer postLikeId;
+    @Column(name = "tag_id",nullable = false,unique = true)
+    private Integer tagId;
 
     @Column(name = "user_id",nullable = false)
     private Integer userId;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id",nullable = false)
-    private Post post;
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    private List<Post> posts;
 }

@@ -34,6 +34,9 @@ public class Comment {
     @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Reply> replies=new ArrayList<>();
 
+    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<CommentLike> commentLikes=new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "post_id",nullable = false)
     private Post post;

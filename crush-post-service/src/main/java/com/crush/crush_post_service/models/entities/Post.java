@@ -1,8 +1,6 @@
 package com.crush.crush_post_service.models.entities;
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +32,15 @@ public class Post {
     @Column(name = "comment_count")
     private Long commentCount;
 
+    @Column(name ="share_count" )
+    private Long shareCount;
+
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JoinTable(name = "post_hashtags",
             joinColumns = @JoinColumn(name="post_id"),
@@ -46,4 +53,15 @@ public class Post {
 
     @OneToMany(mappedBy = "post",cascade =CascadeType.ALL,orphanRemoval = true)
     private List<PostLike> postLikes=new ArrayList<>();
+
+    @OneToMany(mappedBy = "post",cascade =CascadeType.ALL,orphanRemoval = true)
+    private List<SharePost> sharePosts=new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "post_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags;
 }

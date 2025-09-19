@@ -1,6 +1,5 @@
 package com.crush.crush_post_service.models.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,18 +9,19 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "post_like")
-public class PostLike{
+@Table(name = "share_post")
+public class SharePost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "like_id",unique = true,nullable = false)
-    private Integer postLikeId;
+    @Column(name = "share_post_id",nullable = false,unique = true)
+    private Integer sharePostId;
 
     @Column(name = "user_id",nullable = false)
     private Integer userId;
 
     @ManyToOne
-    @JoinColumn(name = "post_id",nullable = false)
+    @JoinColumn(name = "post_id")
     private Post post;
+
 }
