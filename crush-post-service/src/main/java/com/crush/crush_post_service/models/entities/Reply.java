@@ -21,8 +21,14 @@ public class Reply {
     @Column(name = "reply_id",nullable = false,unique = true)
     private Integer replyId;
 
+    @Column(name = "user_id",nullable = false)
+    private Integer userId;
+
     @Column(name = "reply",nullable = false)
     private String reply;
+
+    @Column(name = "reply_like_count",nullable = false)
+    private Long replyLikeCount=0L;
 
     @Column(name = "crated_date",nullable = false)
     private Date createdDate;

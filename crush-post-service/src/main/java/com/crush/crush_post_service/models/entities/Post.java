@@ -26,20 +26,29 @@ public class Post {
     @Column(name = "media_url",nullable = false)
     private String mediaUrl;
 
-    @Column(name = "like_count")
-    private Long likeCount;
+    @Column(name = "like_count",nullable = false)
+    private Long likeCount=0L;
 
-    @Column(name = "comment_count")
-    private Long commentCount;
+    @Column(name = "comment_count",nullable = false)
+    private Long commentCount=0L;
 
-    @Column(name ="share_count" )
-    private Long shareCount;
+    @Column(name ="share_count" ,nullable = false)
+    private Long shareCount=0L;
 
     @Column(name = "latitude")
     private double latitude;
 
     @Column(name = "longitude")
     private double longitude;
+
+    @Column(name = "is_comment_off",nullable = false)
+    private boolean isCommentOff=false;
+
+    @Column(name = "hide_like_count",nullable = false)
+    private boolean hideLikeCount=false;
+
+    @Column(name = "hide_share_count",nullable = false)
+    private boolean hideShareCount=false;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JoinTable(name = "post_hashtags",

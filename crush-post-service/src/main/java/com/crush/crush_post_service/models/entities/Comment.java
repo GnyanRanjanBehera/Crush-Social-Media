@@ -28,6 +28,12 @@ public class Comment {
     @Column(name = "comment",nullable = false)
     private String comment;
 
+    @Column(name = "comment_like_count",nullable = false)
+    private Long commentLikeCount=0L;
+
+    @Column(name = "reply_count",nullable = false)
+    private Long replyCount=0L;
+
     @Column(name = "created_date",nullable = false)
     private Date createdDate;
 
