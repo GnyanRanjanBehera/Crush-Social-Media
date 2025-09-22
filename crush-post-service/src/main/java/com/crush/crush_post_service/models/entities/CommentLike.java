@@ -4,6 +4,8 @@ package com.crush.crush_post_service.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +22,9 @@ public class CommentLike {
 
     @Column(name = "user_id",unique = true,nullable = false)
     private Integer userId;
+
+    @Column(name = "liked_at",nullable = false)
+    private LocalDateTime likedAt=LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "com_id",nullable = false)

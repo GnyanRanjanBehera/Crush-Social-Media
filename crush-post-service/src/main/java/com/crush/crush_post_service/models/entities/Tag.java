@@ -4,6 +4,7 @@ package com.crush.crush_post_service.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -21,6 +22,9 @@ public class Tag {
 
     @Column(name = "user_id",nullable = false)
     private Integer userId;
+
+    @Column(name = "tagged_at",nullable = false)
+    private LocalDateTime taggedAt=LocalDateTime.now();
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private List<Post> posts;

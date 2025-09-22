@@ -3,6 +3,7 @@ package com.crush.crush_post_service.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,8 +31,8 @@ public class Reply {
     @Column(name = "reply_like_count",nullable = false)
     private Long replyLikeCount=0L;
 
-    @Column(name = "crated_date",nullable = false)
-    private Date createdDate;
+    @Column(name = "replied_at",nullable = false)
+    private LocalDateTime repliedAt=LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "com_id",nullable = false)

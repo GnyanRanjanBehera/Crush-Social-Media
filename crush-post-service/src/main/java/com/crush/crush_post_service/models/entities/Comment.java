@@ -2,6 +2,7 @@ package com.crush.crush_post_service.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,8 +35,8 @@ public class Comment {
     @Column(name = "reply_count",nullable = false)
     private Long replyCount=0L;
 
-    @Column(name = "created_date",nullable = false)
-    private Date createdDate;
+    @Column(name = "commented_at",nullable = false)
+    private LocalDateTime commentedAt=LocalDateTime.now();
 
     @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Reply> replies=new ArrayList<>();

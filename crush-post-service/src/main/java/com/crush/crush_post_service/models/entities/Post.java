@@ -1,6 +1,8 @@
 package com.crush.crush_post_service.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,9 @@ public class Post {
 
     @Column(name = "hide_share_count",nullable = false)
     private boolean hideShareCount=false;
+
+    @Column(name = "posted_at",nullable = false)
+    private LocalDateTime postedAt=LocalDateTime.now();
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
     @JoinTable(name = "post_hashtags",
