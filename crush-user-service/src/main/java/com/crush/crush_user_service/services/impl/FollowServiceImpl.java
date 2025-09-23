@@ -2,13 +2,21 @@ package com.crush.crush_user_service.services.impl;
 import com.crush.crush_user_service.exceptions.BadApiRequestException;
 import com.crush.crush_user_service.exceptions.ResourceNotFoundException;
 import com.crush.crush_user_service.models.dtos.FollowDto;
+import com.crush.crush_user_service.models.dtos.PageableResponse;
 import com.crush.crush_user_service.models.entities.Follow;
 import com.crush.crush_user_service.models.entities.User;
 import com.crush.crush_user_service.repositories.FollowRepo;
 import com.crush.crush_user_service.repositories.UserRepo;
 import com.crush.crush_user_service.services.FollowService;
+import com.crush.crush_user_service.utils.Helper;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -52,5 +60,23 @@ public class FollowServiceImpl implements FollowService {
         Follow follow = followRepo.findByFollowerAndFollowing(follower, following)
                 .orElseThrow(() -> new BadApiRequestException("Not following this user"));
         followRepo.delete(follow);
+    }
+
+    @Override
+    public PageableResponse<FollowDto> followers(Integer userId,int pageNumber,int pageSize,String sortBy, String sortDir) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new BadApiRequestException("user not found by this id"));
+        Sort sort = (sortDir.equalsIgnoreCase("desc"))?(Sort.by(sortBy).descending()):(Sort.by(sortBy).ascending());
+        Pageable pageable= PageRequest.of(pageNumber,pageSize,sort);
+        Page<Follow> byFollower = followRepo.findByFollower(user,pageable);
+        return Helper.getPageableResponse(byFollower, FollowDto.class);
+    }
+
+    @Override
+    public PageableResponse<FollowDto> followings(Integer userId,int pageNumber,int pageSize,String sortBy, String sortDir) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new BadApiRequestException("user not found by this id"));
+        Sort sort = (sortDir.equalsIgnoreCase("desc"))?(Sort.by(sortBy).descending()):(Sort.by(sortBy).ascending());
+        Pageable pageable= PageRequest.of(pageNumber,pageSize,sort);
+        Page<Follow> byFollower = followRepo.findByFollowing(user,pageable);
+        return Helper.getPageableResponse(byFollower, FollowDto.class);
     }
 }
