@@ -1,9 +1,6 @@
 package com.crush.crush_user_service.models.entities;
-
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -30,9 +27,5 @@ public class Follow {
     @ManyToOne
     @JoinColumn(name = "following_id")
     private User following;
-
-
-
-
 
 }
